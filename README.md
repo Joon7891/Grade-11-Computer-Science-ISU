@@ -1,10 +1,11 @@
 # Save The Princess
-Independent Study Unit Project for Grade 11 Computer Science - Medieval-Themed Tower Defense Game
+Save The Princess is a tower-defense game where the player collects resources and builds towers to preventing enemy troops from capturing the princess.
 
 **Techniques/Technologies Used:**
-- XNA
+- XNA (Ported to MonoGame)
 - Object Oriented Programming 
 - Basic AI for Enemy Movement
+- Flexible Graphical and Logistical APIs
 - Quadrant Tree for Fast Collision Detection
 
 **Creator:**
