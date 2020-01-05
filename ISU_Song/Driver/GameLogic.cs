@@ -87,7 +87,7 @@ namespace ISU_Song.Driver
             }
 
             //If game state button is pressed
-            if (CollisionDetection.PointToRectangle(gameStateButtonRect, GUI.Cursor.circle.center) && Main.NewButtonPress(Main.newGamePadState.Buttons.A, Main.oldGamePadState.Buttons.A))
+            if (CollisionDetection.PointToRectangle(gameStateButtonRect, GUI.Cursor.circle.center) && (NewKeyStroke(Keys.Enter) || Main.NewButtonPress(Main.newGamePadState.Buttons.A, Main.oldGamePadState.Buttons.A)))
             {
                 //Changing game state depending on current game state
                 if (currentGameState == WAVE_ENDED)
@@ -311,7 +311,7 @@ namespace ISU_Song.Driver
         //Pre: 'newKey', the key to test if its a newkeystroke
         //Post: Returns true or false, depending on if the keystroke is a new one
         //Description: Subprogram to determine if keystorke is a new one
-        private static bool NewKeyStroke(Keys newKey)
+        public static bool NewKeyStroke(Keys newKey)
         {
             //If keystroke is a new one, return true
             if (Main.newKeyboardState.IsKeyDown(newKey) && Main.oldKeyboardState.IsKeyUp(newKey))

@@ -388,17 +388,21 @@ namespace ISU_Song.Driver
         private void MainMenuUpdate()
         {            
             //If the D-Pad/left thumbstick is moved, change selection option. If 'A' is pressed, go to the appropriate screen
-            if (NewButtonPress(newGamePadState.DPad.Down, oldGamePadState.DPad.Down) || NewThumbstickMovement(newGamePadState.ThumbSticks.Left, oldGamePadState.ThumbSticks.Left) == "DOWN")
+            if (GameLogic.NewKeyStroke(Keys.Down) ||
+                NewButtonPress(newGamePadState.DPad.Down, oldGamePadState.DPad.Down) || 
+                NewThumbstickMovement(newGamePadState.ThumbSticks.Left, oldGamePadState.ThumbSticks.Left) == "DOWN")
             {                
                 selectOption = (selectOption % 3) + 1;
                 xboxAButtonRect.Y = 200  + selectOption * 65;
             }
-            else if (NewButtonPress(newGamePadState.DPad.Up, oldGamePadState.DPad.Up) || NewThumbstickMovement(newGamePadState.ThumbSticks.Left, oldGamePadState.ThumbSticks.Left) == "UP")
+            else if (GameLogic.NewKeyStroke(Keys.Up) ||
+                NewButtonPress(newGamePadState.DPad.Up, oldGamePadState.DPad.Up) || 
+                NewThumbstickMovement(newGamePadState.ThumbSticks.Left, oldGamePadState.ThumbSticks.Left) == "UP")
             {
                 selectOption = (selectOption + 1) % 3 + 1;
                 xboxAButtonRect.Y = 200 + selectOption * 65;
             }
-            else if (NewButtonPress(newGamePadState.Buttons.A, oldGamePadState.Buttons.A))
+            else if (GameLogic.NewKeyStroke(Keys.Enter) || NewButtonPress(newGamePadState.Buttons.A, oldGamePadState.Buttons.A))
             {
                 //Changing screen mode based off of selection option
                 screenMode = selectOption;
@@ -472,7 +476,7 @@ namespace ISU_Song.Driver
             if (!tutorialShown)
             {
                 //If tutorial has not been seen yet, wait for user to press 'Y' to resume game
-                if (NewButtonPress(newGamePadState.Buttons.Y, oldGamePadState.Buttons.Y))
+                if (GameLogic.NewKeyStroke(Keys.Enter) || NewButtonPress(newGamePadState.Buttons.Y, oldGamePadState.Buttons.Y))
                 {
                     tutorialShown = true;
                 }

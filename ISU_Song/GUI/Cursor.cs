@@ -14,7 +14,7 @@ namespace ISU_Song.GUI
     class Cursor
     {
         //Objects for cursor view methods and constant for cursor speed
-        public static Circle circle = new Circle(new Vector2(10, 10), 5, Color.Black);
+        public static Circle circle = new Circle(new Vector2(300, 300), 5, Color.Black);
         public static Rectangle highlightingRect = new Rectangle(0, 0, 50, 50);
         const int CURSOR_SPEED = 7;
 
@@ -30,8 +30,10 @@ namespace ISU_Song.GUI
         //Description: Subprogram to hold update logic for cursor
         public static void Update()
         {
+            Console.WriteLine(circle.center.X + " " + circle.center.Y);
+            
             //If D-Pad or Left Thumbstick Left is pressed, move cursor left, as long as it can move left            
-            if (Driver.Main.newGamePadState.DPad.Left == ButtonState.Pressed && circle.Left() > 0)
+            if ((Driver.Main.newGamePadState.DPad.Left == ButtonState.Pressed || Driver.Main.newKeyboardState.IsKeyDown(Keys.Left)) && circle.Left() > 0)
             {
                 circle.center.X -= (int)(CURSOR_SPEED / (1.5 * Driver.GameLogic.currentSpeed));
             }
@@ -41,7 +43,7 @@ namespace ISU_Song.GUI
             }
 
             //If D-Pad or Left Thumbstick Right is pressed, move cursor right, as long as it can move right
-            if (Driver.Main.newGamePadState.DPad.Right == ButtonState.Pressed && circle.Right() < 800)
+            if ((Driver.Main.newGamePadState.DPad.Right == ButtonState.Pressed || Driver.Main.newKeyboardState.IsKeyDown(Keys.Right)) && circle.Right() < 800)
             {
                 circle.center.X += (int)(CURSOR_SPEED / (1.5 * Driver.GameLogic.currentSpeed));
             }
@@ -51,7 +53,7 @@ namespace ISU_Song.GUI
             }
 
             //If D-Pad or Left Thumbstick Down is pressed, move cursor down, as long as it can move down
-            if (Driver.Main.newGamePadState.DPad.Down == ButtonState.Pressed && circle.Bottom() < 550)
+            if ((Driver.Main.newGamePadState.DPad.Down == ButtonState.Pressed || Driver.Main.newKeyboardState.IsKeyDown(Keys.Down)) && circle.Bottom() < 550)
             {
                 circle.center.Y += (int)(CURSOR_SPEED / (1.5 * Driver.GameLogic.currentSpeed));
             }
@@ -61,7 +63,7 @@ namespace ISU_Song.GUI
             }
 
             //If D-Pad or Left Thumbstuck Up is pressed, move cursor up, as long as it can move up
-            if (Driver.Main.newGamePadState.DPad.Up == ButtonState.Pressed && circle.Top() > 0)
+            if ((Driver.Main.newGamePadState.DPad.Up == ButtonState.Pressed || Driver.Main.newKeyboardState.IsKeyDown(Keys.Up)) && circle.Top() > 0)
             {
                 circle.center.Y -= (int)(CURSOR_SPEED / (1.5 * Driver.GameLogic.currentSpeed));
             }
@@ -98,7 +100,8 @@ namespace ISU_Song.GUI
             highlightingRect.Y = (int)(50 * gridLoc.Y);
 
             //If 'A' is pressed and cursor is on game map, set grid location, if 'B' is pressed, clear selected grid location
-            if (Driver.Main.NewButtonPress(Driver.Main.newGamePadState.Buttons.A, Driver.Main.oldGamePadState.Buttons.A) &&
+            if ((Driver.Main.NewButtonPress(Driver.Main.newGamePadState.Buttons.A, Driver.Main.oldGamePadState.Buttons.A) ||
+                Driver.GameLogic.NewKeyStroke(Keys.Enter)) &&
                 gridLoc.X < 13 && gridLoc.Y < 11)
             {
                 selectedGridLoc = gridLoc;
